@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AMD</title>
+</head>
+ 
+<body>
+  <!-- BasicAuth -->
+  <div>
+    <form id="form" action="">
+      <input type="text" name="username" id="username">
+      <input type="password" name="password" id="password">
+      <button id="login">login</button>
+    </form>
+  </div>
+  
+  <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', async(e) => {
+        e.preventDefault();
+
+        const email = form.username.value;
+        const password = form.password.value;
+
+        const res = await fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Basic ' + btoa(username + ':' + password),
+            }
+          });
+
+          console.log(res);
+      });
+  </script>
+</body>
+ 
+</html>
