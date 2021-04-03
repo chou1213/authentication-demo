@@ -1,27 +1,21 @@
 var router = require('koa-router')();
 
-router.get('/*', function *(next) {
+router.get('/*', function* (next) {
   console.log(this.get('Authorization'))
   let Authorization = this.get('Authorization');
-  if(Authorization){
-    Authorization = Authorization.replace('Basic ','');
+  if (Authorization) {
+    Authorization = Authorization.replace('Basic ', '');
     const [usrname, passwd] = Buffer.from(Authorization, 'base64').toString().split(':');
     console.log(Buffer.from(Authorization, 'base64').toString().split(':'));
-    if(usrname === '123' && passwd === '123'){
-      yield this.render('user');  
-    }else{
+    if (usrname === '123' && passwd === '123') {
+      yield this.render('user');
+    } else {
       this.status = 403;
     }
-  }else {
+  } else {
     this.status = 401;
     this.append('WWW-Authenticate', 'Basic')
   }
-});
-
-router.get('/index', function *(next) {
-  yield this.render('index', {
-    title: 'Hello World Koa!'
-  });  
 });
 
 module.exports = router;
